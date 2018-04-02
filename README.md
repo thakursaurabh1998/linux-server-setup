@@ -83,7 +83,7 @@ Enter the following inputs accordingly.
 
   3.  _You have got access to the virtual machine locally_
 
-### 12. Installing FLASK and other packages
+### 10. Installing FLASK and other packages
   
   __Remember to install all the pip dependencies in home directory so they are accesible from HOME and doesn't cause any PATH related problems__
 
@@ -139,15 +139,15 @@ Enter the following inputs accordingly.
           $ sudo mkdir /var/www/catalog
           ```
           - Clone the ___Science Digest___ project in this catalog directory:
-	        
+          
           ```
-	        $ sudo git clone https://github.com/thakursaurabh1998/ScienceDigest.git /var/www/catalog
-	      ```
-	        
+          $ sudo git clone https://github.com/thakursaurabh1998/ScienceDigest.git /var/www/catalog
+           ```
+          
           - Making .wsgi file for serving on mod_wsgi
-	        
+          
           ```
-	        $ sudo nano catalog.wsgi
+          $ sudo nano catalog.wsgi
           ```
           
           ___CONTENT OF THE FILE___
@@ -159,7 +159,25 @@ Enter the following inputs accordingly.
           
           from views import app as application
           ```
-      2. Default virtual file
+      2. Create a virtual environment
+      
+          (I know this is redundant with above steps but this was added as a patch so keep going.)
+          1. Install and activate virtual environment
+
+            ```
+            $ pip install virtualenv
+            $ cd /var/www/catalog
+            $ virtualenv venv
+            $ . venv/bin/activate
+
+            ```
+          2. Install dependencies
+            ```
+            (venv)$ pip install flask httplib2 oauth2client sqlalchemy psycopg2 sqlalchemy_utils
+            (venv)$ deactivate
+            ```
+          Also apply any other leftout dependencies
+      3. Default virtual file
           - Open the default virtual file:
 
           ```
@@ -170,6 +188,7 @@ Enter the following inputs accordingly.
           <VirtualHost *:80>
             ServerName 35.185.137.139
             ServerAdmin thakursaurabh1998@gmail.com
+            WSGIDaemonProcess views python-path=/var/www/catalog:/var/www/catalog/venv/lib/python2.7/site-packages
             WSGIProcessGroup views
             WSGIScriptAlias / /var/www/catalog/views.wsgi
             <Directory /var/www/catalog/>
@@ -185,12 +204,13 @@ Enter the following inputs accordingly.
             LogLevel warn
             CustomLog ${APACHE_LOG_DIR}/access.log combined
           </VirtualHost>
-		  ```	  
-	  3. Restarting Apache
-	    ```
-	    sudo service apache2 restart
-	    ```
+      ```   
+    4. Restarting Apache
+      ```
+      sudo service apache2 restart
+      ```
 
+      
 ---
 
 ### Server is succesfully running
