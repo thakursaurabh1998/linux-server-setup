@@ -25,17 +25,8 @@ Access the live WebApp [Science Digest](http://35.185.137.139)
 
 ### 3.  Start the instance
   Open the google compute engine by clicking on the ssh button present under the 'connect' column.
-### 4. Changing the default SSH port
-  1.  Run this command-
-  ```
-  $ sudo nano /etc/ssh/sshd_config
-  ```
-  2.  Change the ```Port 22``` line to ```Port 2200```
-  3.  Open a new instance with custom port 2200(but don't close this one). You can enter the custom port number 2200 by clicking on the dropdown button in the compute engine page under 'connect' column and selecting 'open in browser window on custom port'.
 
-If it opens then the port is changed successfully.
-
-### 5. Configuring the Uncomplicated Firewall
+### 4. Configuring the Uncomplicated Firewall
   1.  We have to only give access to http, ntp and our custom ssh port(i.e.2200)
   2.  Enter the following commands to configure the ufw
   ```
@@ -47,6 +38,16 @@ If it opens then the port is changed successfully.
   ```
   $ sudo ufw enable
   ```
+
+### 5. Changing the default SSH port
+  1.  Run this command-
+  ```
+  $ sudo nano /etc/ssh/sshd_config
+  ```
+  2.  Change the ```Port 22``` line to ```Port 2200```
+  3.  Open a new instance with custom port 2200(but don't close this one). You can enter the custom port number 2200 by clicking on the dropdown button in the compute engine page under 'connect' column and selecting 'open in browser window on custom port'.
+
+If it opens then the port is changed successfully.
 
 ### 6. Creating grader user
 ```
